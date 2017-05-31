@@ -5,7 +5,7 @@ unit Unit1;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  unit2,Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
   StdCtrls;
 
 type
@@ -13,7 +13,10 @@ type
   { TForm1 }
 
   TForm1 = class(TForm)
+    Button1: TButton;
     Edit1: TEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
     Label1: TLabel;
     Label10: TLabel;
     Label100: TLabel;
@@ -115,7 +118,9 @@ type
     Label98: TLabel;
     Label99: TLabel;
     Memo1: TMemo;
+    Shape1: TShape;
     //procedure FormClick(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Clicked(Sender: TObject);
    // procedure komsije(a:string);
@@ -127,6 +132,7 @@ type
 
 var
   Form1: TForm1;
+  f2:tform;
   igrac,faza,start_chip:integer;
   //start_chip:string;
   susedi1:set of 0..100;
@@ -146,20 +152,28 @@ begin
   faza:=1;
   for i:=1 to componentcount-1 do
       begin
-      if components[i] is Tlabel then
+      if components[i] is Tlabel then    //legacy code shit dont mess with this
          begin
           temp:=(components[i] as Tlabel).name;
           delete(temp,1,5);
            memo1.append(temp);
          end;
       end;
+  shape1.Brush.Color:=clRed;
 end;
 
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  F2:=Tform2.create(nil);
+  F2.show;
+end;
 
-
+//simicu ti bi trebalo da napravis na formi 2 ili na nekom meniju
+//uputsva za igru, mozda i da primenis neki popumeni al to je na tebi
+//ako imas ideju slobodno predlozi
 procedure TForm1.Clicked(Sender: TObject);
 var lokacija,temp,temp_thief:string;
-    a,b,i,c,k:integer;
+    a,b,i,c,k,zeton1,zeton2,j:integer;
 begin
   lokacija:=(Sender as Tlabel).name;
   delete(lokacija,1,5);
@@ -211,7 +225,7 @@ begin
 
        end;
 
-         for k:=1 to componentcount-1 do
+         for k:=1 to componentcount-1 do      //preuizmanje susednih cipova
              if components[k] is Tlabel then
                begin
                temp_thief:=(components[k] as tlabel).name;
@@ -239,8 +253,34 @@ begin
            igrac:=2;
         faza:=1;
         end;
+
+    if igrac=1 then
+        shape1.Brush.Color:=clRed
+    else if igrac=2 then
+         shape1.Brush.Color:=clBlue;
+
+ zeton1:=0;
+ zeton2:=0;
+ for j:=1 to componentcount-1 do
+     begin
+     if components[j] is tlabel then
+       begin
+       if (components[j] as tlabel).tag=1 then
+         inc(zeton1)
+       else if (components[j] as tlabel).tag=2 then
+         inc(zeton2);
+       end;
+     end;
+edit2.text:=inttostr(zeton1);
+edit3.text:=inttostr(zeton2);
+//ovde ide miha
+//trebas da napravis da ako jedan igrac ima nula zetona
+//da iskoci koji igrac je pobedio i koliko taj igrac ima zetona
+//i da uradis da se sve resetuje na nulu na klik dugmeta
+//ako nesto ne znas pusti messenger pa cu pomoci
+//ako imas ideju slobodno predlozi
 end;
- (*
+ (*             //legacy shit, dont touch
 procedure komsije(a:string);
 
 begin

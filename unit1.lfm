@@ -1000,7 +1000,7 @@ object Form1: TForm1
     OnClick = Clicked
   end
   object Label91: TLabel
-    Left = 42
+    Left = 40
     Height = 15
     Top = 184
     Width = 15
@@ -1116,6 +1116,7 @@ object Form1: TForm1
     Top = 119
     Width = 80
     TabOrder = 0
+    Visible = False
   end
   object Memo1: TMemo
     Left = 385
@@ -1126,5 +1127,37 @@ object Form1: TForm1
       'Memo1'
     )
     TabOrder = 1
+    Visible = False
+  end
+  object Shape1: TShape
+    Left = 256
+    Height = 65
+    Top = 272
+    Width = 65
+  end
+  object Button1: TButton
+    Left = 536
+    Height = 25
+    Top = 67
+    Width = 75
+    Caption = 'Button1'
+    OnClick = Button1Click
+    TabOrder = 2
+  end
+  object Edit2: TEdit
+    Left = 328
+    Height = 23
+    Top = 48
+    Width = 80
+    TabOrder = 3
+    Text = 'Edit2'
+  end
+  object Edit3: TEdit
+    Left = 328
+    Height = 23
+    Top = 88
+    Width = 80
+    TabOrder = 4
+    Text = 'Edit3'
   end
 end
