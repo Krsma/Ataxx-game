@@ -166,30 +166,64 @@ procedure TForm1.Button1Click(Sender: TObject);
 begin
   F2:=Tform2.create(nil);
   F2.show;
+
+
 end;
 
 //simicu ti bi trebalo da napravis na formi 2 ili na nekom meniju
 //uputsva za igru, mozda i da primenis neki popumeni al to je na tebi
 //ako imas ideju slobodno predlozi
 procedure TForm1.Clicked(Sender: TObject);
-var lokacija,temp,temp_thief:string;
-    a,b,i,c,k,zeton1,zeton2,j:integer;
+var lokacija,temp,temp_thief,painter:string;
+    a,b,i,c,k,zeton1,zeton2,j,p,l:integer;
+    zuto,zeleno:boolean;
 begin
-  lokacija:=(Sender as Tlabel).name;
+  lokacija:=(Sender as Tlabel).name;    //koriscena za odrdjivanje pozicije
   delete(lokacija,1,5);
   a:=strtoint(lokacija);
+
   if ((Sender as Tlabel).tag=igrac) and (faza=1) then
      begin
 
-       //start_chip:=lokacija;
-       //komsije(lokacija);
        faza:=2;
 
 
        start_chip:=a;
        edit1.text:=lokacija;   //pripaziti na elemente skupa kao odu negativni
        susedi1:=[a+1]+[a-1]+[a+10]+[a-10]+[a+10-1]+[a+10+1]+[a-10-1]+[a-10+1];
-       susedi2:=[a+20]+[a-20]+[a+2]+[a-2]+[a+20+1]+[a+20+2]+[a+20-1]+[a+20-2]+[a-20+1]+[a-20+2]+[a-20-1]+[a-20-2];
+       susedi2:=[a+20]+[a-20]+[a+2]+[a-2]+[a+20+1]+[a+20+2]+[a+20-1]+[a+20-2]+[a-20+1]+[a-20+2]+[a-20-1]+[a-20-2]+[a+10+2]+[a-10-2]+[a+10-2]+[a-10+2];
+           //fuck the motherfucking border checks
+       if (a=1) or (a=11) or (a=21) or (a=31) or (a=41) or (a=51) or (a=61) or (a=71) or (a=81) or (a=91) then
+         begin
+         susedi1:=[a+1]+[a+10]+[a-10]+[a-10+1]+[a+10+1];
+         susedi2:=[a-20]+[a-20+1]+[a-20+2]+[a-10+2]+[a+10+2]+[a+2]+[a+20+2]+[a+20+1]+[a+20];
+         end
+       else if (a=10) or (a=20) or (a=30) or (a=40) or (a=50) or (a=60) or  (a=80) or (a=90) or (a=100) then
+         begin
+           susedi1:=[a+10]+[a-10]+[a-1]+[a-10-1]+[a+10-1];
+           susedi2:=[a-20]+[a+20]+[a+20-1]+[a+20-2]+[a-20-1]+[a-20-2]+[a-10-2]+[a+10-2]+[a-2];
+         end
+       else if (a=2) or (a=12) or (a=22) or (a=32) or (a=42) or (a=52) or (a=62) or (a=72) or (a=82) or (a=92) then
+          begin
+           susedi2:=susedi2-[a-2]-[a-10-2]-[a+10-2]-[a+20-2]-[a-20-2];
+          end
+       else if (a=9) or (a=19) or (a=29) or (a=39) or (a=49) or (a=59) or (a=69) or (a=79) or (a=89) or (a=99) then
+          begin
+            susedi2:=susedi2-[a+2]-[a-10+2]-[a+10+2]-[a+20+2]-[a-20+2];
+          end;
+
+
+       for l:=1 to componentcount-1 do
+           if components[l] is tlabel then
+              begin
+                painter:=(components[l] as tlabel).name;
+                delete(painter,1,5);
+                p:=strtoint(painter);
+              if ((components[l] as tlabel).tag=0) and (p in susedi1) then
+                  (components[l] as tlabel).color:=clGreen
+                  else if ((components[l] as tlabel).tag=0) and (p in susedi2) then
+                   (components[l] as tlabel).color:=clYellow;
+              end;
 
      end
     else if ((Sender as Tlabel).tag=0) and (faza=2) and ((a in susedi1) or (a in susedi2)) then
@@ -209,7 +243,7 @@ begin
        for i:=1 to componentcount-1 do
            if components[i] is Tlabel then
              begin
-             temp:=(components[i] as Tlabel).Name;
+             temp:=(components[i] as Tlabel).Name;      //kod za brsianje kod duble jumpa
              delete(temp,1,5);
              b:=strtoint(temp);
              if b=start_chip then
@@ -252,6 +286,20 @@ begin
         else
            igrac:=2;
         faza:=1;
+
+         for l:=1 to ComponentCount-1 do
+             if Components[l] is tlabel then
+               begin
+               zuto:=(components[l] as tlabel).color=clYellow;
+               zeleno:=(components[l] as tlabel).color=clGreen;
+               if (zuto) or (zeleno) then
+                      (components[l] as tlabel).color:=clGray;
+
+                end;
+
+
+
+
         end;
 
     if igrac=1 then

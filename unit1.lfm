@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 772
+  Left = 889
   Height = 378
-  Top = 95
+  Top = 172
   Width = 628
   Caption = 'Form1'
   ClientHeight = 378
@@ -1111,28 +1111,29 @@ object Form1: TForm1
     OnClick = Clicked
   end
   object Edit1: TEdit
-    Left = 430
+    Left = 552
     Height = 23
-    Top = 119
+    Top = 264
     Width = 80
     TabOrder = 0
     Visible = False
   end
   object Memo1: TMemo
-    Left = 385
+    Left = 478
     Height = 90
-    Top = 185
+    Top = 288
     Width = 150
     Lines.Strings = (
-      'Memo1'
+      'NO'
+      'TOUCHING'
     )
     TabOrder = 1
     Visible = False
   end
   object Shape1: TShape
-    Left = 256
+    Left = 61
     Height = 65
-    Top = 272
+    Top = 280
     Width = 65
   end
   object Button1: TButton
@@ -1150,7 +1151,6 @@ object Form1: TForm1
     Top = 48
     Width = 80
     TabOrder = 3
-    Text = 'Edit2'
   end
   object Edit3: TEdit
     Left = 328
@@ -1158,6 +1158,5 @@ object Form1: TForm1
     Top = 88
     Width = 80
     TabOrder = 4
-    Text = 'Edit3'
   end
 end
