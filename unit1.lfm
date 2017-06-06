@@ -1,7 +1,7 @@
 object Form1: TForm1
-  Left = 548
+  Left = 774
   Height = 378
-  Top = 249
+  Top = 196
   Width = 628
   Caption = 'Form1'
   ClientHeight = 358
@@ -9,28 +9,16 @@ object Form1: TForm1
   Menu = MainMenu1
   OnCreate = FormCreate
   LCLVersion = '1.6.4.0'
-  object Label1: TLabel
-    Tag = 1
-    Left = 40
+  object fts: TLabel
+    Left = 478
     Height = 15
-    Top = 24
-    Width = 15
-    Caption = '     '
-    Color = clRed
-    ParentColor = False
-    ParentShowHint = False
-    Transparent = False
-    OnClick = Clicked
-  end
-  object Label2: TLabel
-    Left = 62
-    Height = 15
-    Top = 24
-    Width = 15
-    Caption = '     '
+    Top = 264
+    Width = 40
+    Caption = 'HOTFIX'
     Color = clGray
     ParentColor = False
     Transparent = False
+    Visible = False
     OnClick = Clicked
   end
   object Label3: TLabel
@@ -1183,9 +1171,9 @@ object Form1: TForm1
     TabOrder = 6
   end
   object Button5: TButton
-    Left = 501
+    Left = 528
     Height = 25
-    Top = 77
+    Top = 240
     Width = 131
     Caption = 'save scores'
     Enabled = False
@@ -1193,14 +1181,37 @@ object Form1: TForm1
     TabOrder = 7
     Visible = False
   end
+  object Label1: TLabel
+    Tag = 1
+    Left = 40
+    Height = 15
+    Top = 24
+    Width = 15
+    Caption = '     '
+    Color = clRed
+    ParentColor = False
+    Transparent = False
+    OnClick = Clicked
+  end
+  object Label2: TLabel
+    Left = 62
+    Height = 15
+    Top = 24
+    Width = 15
+    Caption = '     '
+    Color = clGray
+    ParentColor = False
+    Transparent = False
+    OnClick = Clicked
+  end
   object Timer1: TTimer
     OnTimer = Timer1Timer
-    left = 534
-    top = 123
+    left = 360
+    top = 184
   end
   object MainMenu1: TMainMenu
-    left = 469
-    top = 195
+    left = 360
+    top = 240
     object MenuItem1: TMenuItem
       Caption = 'Uputstva'
       ShortCut = 112

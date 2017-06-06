@@ -23,6 +23,7 @@ type
     Label1: TLabel;
     Label10: TLabel;
     Label100: TLabel;
+    Label2: TLabel;
     Label11: TLabel;
     Label12: TLabel;
     Label13: TLabel;
@@ -32,7 +33,7 @@ type
     Label17: TLabel;
     Label18: TLabel;
     Label19: TLabel;
-    Label2: TLabel;
+    fts: TLabel;
     Label20: TLabel;
     Label21: TLabel;
     Label22: TLabel;
@@ -195,7 +196,7 @@ begin
 
 end;
 
-procedure TForm1.Button5Click(Sender: TObject);
+procedure TForm1.Button5Click(Sender: TObject);   //not working
 begin
   top_scores[scores_tracker]:='game number'+inttostr(scores_tracker)+'result: '+edit2.text+':'+edit3.text;
   ShowMessage('scores saved  '+top_scores[scores_tracker]);
@@ -230,7 +231,7 @@ begin
          susedi1:=[a+1]+[a+10]+[a-10]+[a-10+1]+[a+10+1];
          susedi2:=[a-20]+[a-20+1]+[a-20+2]+[a-10+2]+[a+10+2]+[a+2]+[a+20+2]+[a+20+1]+[a+20];
          end
-       else if (a=10) or (a=20) or (a=30) or (a=40) or (a=50) or (a=60) or  (a=80) or (a=90) or (a=100) then
+       else if (a=10) or (a=20) or (a=30) or (a=40) or (a=50) or (a=60) or (a=70) or (a=80) or (a=90) or (a=100) then
          begin
            susedi1:=[a+10]+[a-10]+[a-1]+[a-10-1]+[a+10-1];
            susedi2:=[a-20]+[a+20]+[a+20-1]+[a+20-2]+[a-20-1]+[a-20-2]+[a-10-2]+[a+10-2]+[a-2];
@@ -352,18 +353,24 @@ begin
          inc(zeton2);
        end;
      end;
-edit2.text:=inttostr(zeton1+1);
+ zeton1:=zeton1;
+edit2.text:=inttostr(zeton1);
 edit3.text:=inttostr(zeton2);
 
 if zeton1+zeton2+1=100 then
   begin
-  if zeton1+1>zeton2 then
+  if zeton1>zeton2 then
     ShowMessage('igrac 1 je pobedio')
-  else if zeton1+1<zeton2 then
+  else if zeton1<zeton2 then
     ShowMessage('igrac 2 je pobedio')
-  else if zeton1+1=zeton2 then
+  else if zeton1=zeton2 then
     ShowMessage('izjednaceno');
   end;
+
+if zeton1=0  then
+   ShowMessage('igrac 2 pobedio')
+else if zeton2=0 then
+  showmessage('igrac 1 pobedio')
 //ovde ide miha
 //trebas da napravis da ako jedan igrac ima nula zetona
 //da iskoci koji igrac je pobedio i koliko taj igrac ima zetona
