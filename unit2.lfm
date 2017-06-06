@@ -1,8 +1,125 @@
 object Form2: TForm2
-  Left = 793
+  Left = 330
   Height = 240
-  Top = 658
+  Top = 303
   Width = 320
   Caption = 'Form2'
+  ClientHeight = 240
+  ClientWidth = 320
   LCLVersion = '1.6.4.0'
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 240
+    Top = 0
+    Width = 320
+    ActivePage = TabSheet3
+    TabIndex = 2
+    TabOrder = 0
+    object TabSheet1: TTabSheet
+      Caption = 'osnovna pravila'
+      ClientHeight = 212
+      ClientWidth = 312
+      object Memo1: TMemo
+        Left = -4
+        Height = 216
+        Top = 0
+        Width = 321
+        Lines.Strings = (
+          'Prvi igrac ima boju crveno, a igrac broj dva boju plavo.'
+          'Igra se igra naizmenicno pomeranjem ili dodavanjem '
+          'zetona.'
+          'Ako zeton pomerite vise od dva polja (oznacena zutom '
+          'boji posle klika dugmeta)'
+          'zeton se pomera sa pocetnog mesta na izabrano.'
+          'Ukoliko odaberete polje susedno izabranom zetonom '
+          'dobijate novi zeton.'
+        )
+        TabOrder = 0
+      end
+      object Button1: TButton
+        Left = 241
+        Height = 25
+        Top = 191
+        Width = 75
+        Caption = 'next'
+        OnClick = Button1Click
+        TabOrder = 1
+      end
+    end
+    object TabSheet2: TTabSheet
+      Caption = 'Komande'
+      ClientHeight = 212
+      ClientWidth = 312
+      object Memo2: TMemo
+        Left = -4
+        Height = 226
+        Top = 0
+        Width = 320
+        Lines.Strings = (
+          'Pomeranje zetona se vrsi na sledeci nacin:'
+          '1:Kliknite na zeton koji zelite da pomerite.'
+          '2:Izaberite polje na koje zelite da pomerite vas zeton'
+          ''
+          'Postavljanje zetona se vrsi na sledeci nacin:'
+          '1:Klik na zuto polje pomera zeton na to polje.'
+          '2:Klik na zeleno postavlja novi zeton na izabrano polje. '
+        )
+        TabOrder = 0
+      end
+      object Button2: TButton
+        Left = -4
+        Height = 25
+        Top = 192
+        Width = 75
+        Caption = 'back'
+        OnClick = Button2Click
+        TabOrder = 1
+      end
+      object Button3: TButton
+        Left = 240
+        Height = 25
+        Top = 191
+        Width = 75
+        Caption = 'next'
+        OnClick = Button3Click
+        TabOrder = 2
+      end
+    end
+    object TabSheet3: TTabSheet
+      Caption = 'shortcuts'
+      ClientHeight = 212
+      ClientWidth = 312
+      object Memo3: TMemo
+        Left = -6
+        Height = 218
+        Top = 0
+        Width = 326
+        Lines.Strings = (
+          'Shortcuts:'
+          'F1: Help'
+          'F2: reset'
+          'F3:close game'
+        )
+        TabOrder = 0
+      end
+      object Button4: TButton
+        Left = -4
+        Height = 25
+        Top = 191
+        Width = 75
+        Caption = 'back'
+        OnClick = Button4Click
+        TabOrder = 1
+      end
+      object Button5: TButton
+        Left = 241
+        Height = 25
+        Top = 191
+        Width = 75
+        Caption = 'close'
+        OnClick = Button5Click
+        TabOrder = 2
+      end
+    end
+  end
 end

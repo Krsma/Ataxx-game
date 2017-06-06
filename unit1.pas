@@ -5,8 +5,8 @@ unit Unit1;
 interface
 
 uses
-  unit2,Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
-  StdCtrls;
+  unit2,unit3,Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ExtCtrls,
+  StdCtrls, Menus;
 
 type
 
@@ -14,9 +14,12 @@ type
 
   TForm1 = class(TForm)
     Button1: TButton;
+    Button4: TButton;
+    Button5: TButton;
     Edit1: TEdit;
     Edit2: TEdit;
     Edit3: TEdit;
+    Edit4: TEdit;
     Label1: TLabel;
     Label10: TLabel;
     Label100: TLabel;
@@ -117,12 +120,24 @@ type
     Label97: TLabel;
     Label98: TLabel;
     Label99: TLabel;
+    MainMenu1: TMainMenu;
     Memo1: TMemo;
+    MenuItem1: TMenuItem;
+    MenuItem2: TMenuItem;
+    MenuItem3: TMenuItem;
+    MenuItem4: TMenuItem;
     Shape1: TShape;
+    Timer1: TTimer;
     //procedure FormClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
+    procedure Button5Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure Clicked(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItem2Click(Sender: TObject);
+    procedure MenuItem3Click(Sender: TObject);
+    procedure MenuItem4Click(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
    // procedure komsije(a:string);
   private
     { private declarations }
@@ -133,11 +148,14 @@ type
 var
   Form1: TForm1;
   f2:tform;
-  igrac,faza,start_chip:integer;
+  f3:tform;
+  igrac,faza,start_chip,timer,timer_min,scores_tracker :integer;
   //start_chip:string;
   susedi1:set of 0..100;
   susedi2:set of 0..100;
   lopov:set of 0..100;
+  top_scores:array[0..10] of string;  //only 10 asave games for simplicity
+
 implementation
 
 {$R *.lfm}
@@ -149,7 +167,14 @@ var i:integer;
     temp:string;
 begin
   igrac:=1;
-  faza:=1;
+  faza:=1;  // var setups
+  timer:=0;
+  timer_min:=0;
+  start_chip:=1;
+  scores_tracker:=1;
+
+  for i:=1 to 10 do
+      top_scores[i]:='';
   for i:=1 to componentcount-1 do
       begin
       if components[i] is Tlabel then    //legacy code shit dont mess with this
@@ -168,6 +193,13 @@ begin
   F2.show;
 
 
+end;
+
+procedure TForm1.Button5Click(Sender: TObject);
+begin
+  top_scores[scores_tracker]:='game number'+inttostr(scores_tracker)+'result: '+edit2.text+':'+edit3.text;
+  ShowMessage('scores saved  '+top_scores[scores_tracker]);
+    inc(scores_tracker);
 end;
 
 //simicu ti bi trebalo da napravis na formi 2 ili na nekom meniju
@@ -208,9 +240,9 @@ begin
            susedi2:=susedi2-[a-2]-[a-10-2]-[a+10-2]-[a+20-2]-[a-20-2];
           end
        else if (a=9) or (a=19) or (a=29) or (a=39) or (a=49) or (a=59) or (a=69) or (a=79) or (a=89) or (a=99) then
-          begin
+          begin    //ineficent but still
             susedi2:=susedi2-[a+2]-[a-10+2]-[a+10+2]-[a+20+2]-[a-20+2];
-          end;
+          end;     //fuck this shit
 
 
        for l:=1 to componentcount-1 do
@@ -239,6 +271,7 @@ begin
        end
      else if a in susedi2 then
        begin
+
        (Sender as Tlabel).tag:=igrac;
        for i:=1 to componentcount-1 do
            if components[i] is Tlabel then
@@ -319,8 +352,18 @@ begin
          inc(zeton2);
        end;
      end;
-edit2.text:=inttostr(zeton1);
+edit2.text:=inttostr(zeton1+1);
 edit3.text:=inttostr(zeton2);
+
+if zeton1+zeton2+1=100 then
+  begin
+  if zeton1+1>zeton2 then
+    ShowMessage('igrac 1 je pobedio')
+  else if zeton1+1<zeton2 then
+    ShowMessage('igrac 2 je pobedio')
+  else if zeton1+1=zeton2 then
+    ShowMessage('izjednaceno');
+  end;
 //ovde ide miha
 //trebas da napravis da ako jedan igrac ima nula zetona
 //da iskoci koji igrac je pobedio i koliko taj igrac ima zetona
@@ -328,6 +371,75 @@ edit3.text:=inttostr(zeton2);
 //ako nesto ne znas pusti messenger pa cu pomoci
 //ako imas ideju slobodno predlozi
 end;
+
+procedure TForm1.MenuItem1Click(Sender: TObject);
+begin
+   F2:=Tform2.create(nil);
+   F2.show;
+end;
+
+procedure TForm1.MenuItem2Click(Sender: TObject);   // game reset
+var i:integer;
+begin
+  for i:=1 to componentcount-1 do
+      begin
+      if Components[i] is tlabel then
+        begin
+        (components[i] as tlabel).tag:=0;
+        (components[i] as tlabel).Color:=clGray;
+        if  (components[i] as tlabel).name='Label1' then
+          begin
+        (components[i] as tlabel).tag:=1;
+        (components[i] as tlabel).Color:=clRed;
+          end
+        else if (components[i] as tlabel).name='Label100' then
+          begin
+        (components[i] as tlabel).tag:=2;
+        (components[i] as tlabel).Color:=clBlue;
+          end;
+
+        end;
+      end;
+edit2.text:='';
+edit3.text:='';
+edit4.text:='';
+shape1.Brush.Color:=clRed;
+igrac:=1;
+faza:=1;  // var setups
+timer:=0;
+timer_min:=0;
+start_chip:=1;
+
+end;
+
+procedure TForm1.MenuItem3Click(Sender: TObject);  //doesnt work, button removed
+var i:integer;
+    s:string;
+begin
+  F3:=Tform3.create(nil);
+  F3.show;
+  //Form3.memo1.lines.clear;
+  for i:=1 to 10 do
+    begin
+       s:=form3.memo1.lines[i];
+      form3.memo1.lines.append(s);
+    end;
+end;
+
+procedure TForm1.MenuItem4Click(Sender: TObject);
+begin
+  f2.close;
+  Form1.Close;
+end;
+
+procedure TForm1.Timer1Timer(Sender: TObject);
+begin
+   inc(timer);
+   if timer>60 then
+     timer_min:=timer div 60;
+   edit4.text:=inttostr(timer_min)+':'+inttostr(timer mod 60);
+end;
+
  (*             //legacy shit, dont touch
 procedure komsije(a:string);
 
